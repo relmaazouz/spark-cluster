@@ -48,7 +48,8 @@ Docker images to:
 
 ## Using Docker Compose
 
-Add the following services to your `docker-compose.yml` to integrate a Spark master and Spark worker in [your BDE pipeline](https://github.com/big-data-europe/app-bde-pipeline):
+docker-compose.yml:
+
 ```yml
 version: '3'
 services:
@@ -94,6 +95,11 @@ services:
 ```
 Make sure to fill in the `INIT_DAEMON_STEP` as configured in your pipeline.
 
+To run the cluster:
+
+    docker-compose up -d
+
+
 ## Running Docker containers without the init daemon
 ### Spark Master
 To start a Spark master:
@@ -104,15 +110,6 @@ To start a Spark master:
 To start a Spark worker:
 
     docker run --name spark-worker-1 --link spark-master:spark-master -d bde2020/spark-worker:3.3.0-hadoop3.3
-
-
-### Run Spark cluster with docker-compose
-
-To start the cluster:
-    
-    cd docker-spark
-    docker-compose up -d
-
 
 ## Launch a Spark application
 Building and running your Spark application on top of the Spark cluster is as simple as extending a template Docker image. Check the template's README for further documentation.
