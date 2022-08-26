@@ -55,6 +55,7 @@ services:
   spark-master:
     image: bde2020/spark-master:3.3.0-hadoop3.3
     container_name: spark-master
+    hostname: spark-master
     ports:
       - "8080:8080"
       - "7077:7077"
@@ -63,6 +64,7 @@ services:
   spark-worker-1:
     image: bde2020/spark-worker:3.3.0-hadoop3.3
     container_name: spark-worker-1
+    hostname: spark-worker-1
     depends_on:
       - spark-master
     ports:
@@ -72,6 +74,7 @@ services:
   spark-worker-2:
     image: bde2020/spark-worker:3.3.0-hadoop3.3
     container_name: spark-worker-2
+    hostname: spark-worker-2
     depends_on:
       - spark-master
     ports:
@@ -81,6 +84,7 @@ services:
   spark-history-server:
       image: bde2020/spark-history-server:3.3.0-hadoop3.3
       container_name: spark-history-server
+      hostname: spark-history-server
       depends_on:
         - spark-master
       ports:
@@ -100,6 +104,15 @@ To start a Spark master:
 To start a Spark worker:
 
     docker run --name spark-worker-1 --link spark-master:spark-master -d bde2020/spark-worker:3.3.0-hadoop3.3
+
+
+### Run Spark cluster with docker-compose
+
+To start the cluster:
+    
+    cd docker-spark
+    docker-compose up -d
+
 
 ## Launch a Spark application
 Building and running your Spark application on top of the Spark cluster is as simple as extending a template Docker image. Check the template's README for further documentation.
